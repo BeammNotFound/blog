@@ -1,0 +1,5 @@
+# @author BeamStark
+# @date 2022-12-05-01:48
+spring:
+  profiles:
+    active: prod
