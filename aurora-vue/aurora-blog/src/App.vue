@@ -191,6 +191,7 @@ body {
   outline: none;
 }
 
+//noinspection ALL
 #app {
   @apply relative min-w-full min-h-screen h-full;
   font-family: Rubik, Avenir, Helvetica, Arial, sans-serif;

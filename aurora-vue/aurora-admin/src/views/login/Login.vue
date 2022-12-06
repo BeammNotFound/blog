@@ -1,13 +1,14 @@
 <template>
   <div class="login-container">
     <div class="login-card">
-      <div class="login-title">管理员登录</div>
+      <div class="logo"></div>
+      <div class="login-title">Greeting, Mr.Stark 🌈</div>
       <el-form status-icon :model="loginForm" :rules="rules" ref="ruleForm" class="login-form">
         <el-form-item prop="username">
           <el-input
             v-model="loginForm.username"
             prefix-icon="el-icon-user-solid"
-            placeholder="用户名"
+            placeholder="Username"
             @keyup.enter.native="login" />
         </el-form-item>
         <el-form-item prop="password">
@@ -15,11 +16,11 @@
             v-model="loginForm.password"
             prefix-icon="iconfont el-icon-mymima"
             show-password
-            placeholder="密码"
+            placeholder="Password"
             @keyup.enter.native="login" />
         </el-form-item>
       </el-form>
-      <el-button type="primary" @click="login">登录</el-button>
+      <el-button type="primary" @click="login">Login 🔑</el-button>
     </div>
   </div>
 </template>
@@ -34,8 +35,8 @@ export default {
         password: ''
       },
       rules: {
-        username: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
-        password: [{ required: true, message: '密码不能为空', trigger: 'blur' }]
+        username: [{ required: true, message: 'The user name cannot be empty', trigger: 'blur' }],
+        password: [{ required: true, message: 'The password cannot be empty', trigger: 'blur' }]
       }
     }
   },
@@ -53,7 +54,7 @@ export default {
                 if (data.flag) {
                   that.$store.commit('login', data.data)
                   generaMenu()
-                  that.$message.success('登录成功')
+                  that.$message.success('Log in successfully')
                   that.$router.push({ path: '/' })
                 } else {
                   that.$message.error(data.message)
@@ -78,20 +79,33 @@ export default {
   bottom: 0;
   right: 0;
   left: 0;
-  background: url(https://static.linhaojun.top/photos/765664a8a75211296a9cd89671d6d660.png) center center / cover
+  background: url(http://beamstark2.oss-cn-hangzhou.aliyuncs.com/photos/11ed009b1b886dd139ec096f034c81fa.png) center center / cover
     no-repeat;
 }
 .login-card {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background: #fff;
+  /*top: 150px;*/
+  /*bottom: 0;*/
+  /*right: 5px;*/
+  background: #ffffff;
   padding: 170px 60px 180px;
   width: 350px;
+  height: 150px;
+  border-radius: 20px;
+  left: 0; top: 0; right: 0; bottom: 0;
+  margin: auto;
+}
+.logo {
+  margin-top: -150px;
+  margin-left: 100px;
+  width: 150px;
+  height: 150px;
+  background: url(http://beamstark2.oss-cn-hangzhou.aliyuncs.com/config/b536312a97af9481eb6bd45d30fc33fe.PNG) center center / cover
+  no-repeat;
 }
 .login-title {
-  color: #303133;
+  margin-top: 5px;
+  color: #000000;
   font-weight: bold;
   font-size: 1rem;
 }
@@ -100,6 +114,10 @@ export default {
 }
 .login-card button {
   margin-top: 1rem;
-  width: 100%;
+  width: 280px;
+  margin-left: 35px;
+  border-radius: 8px;
+  font-size: 15px;
+  background: black;
 }
 </style>
