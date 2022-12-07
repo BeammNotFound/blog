@@ -7,14 +7,16 @@
     <div class="bg-ob-deep-800 px-14 py-16 rounded-2xl shadow-xl block min-h-screen">
       <ul class="timeline timeline-centered">
         <template
-          v-for="archive in archives"
-          :key="t(`settings.months[${archive.time.split('-')[1]}]`) + '-' + archive.time.split('-')[0]">
+            v-for="archive in archives"
+            :key="t(`settings.months[${archive.time.split('-')[1]}]`) + '-' +
+            archive.time.split('-')[0]">
           <li class="timeline-item period">
             <div class="timeline-info"></div>
             <div class="timeline-marker"></div>
             <div class="timeline-content">
               <h2 class="timeline-title">
-                {{ t(`settings.months[${archive.time.split('-')[1]}]`) }}&nbsp{{ archive.time.split('-')[0] }}
+                {{ t(`settings.months[${archive.time.split('-')[1]-1}]`) }}&nbsp{{
+                  archive.time.split('-')[0] }}
               </h2>
             </div>
           </li>
@@ -38,10 +40,10 @@
         </template>
       </ul>
       <Paginator
-        :pageSize="pagination.size"
-        :pageTotal="pagination.total"
-        :page="pagination.current"
-        @pageChange="pageChangeHanlder" />
+          :pageSize="pagination.size"
+          :pageTotal="pagination.total"
+          :page="pagination.current"
+          @pageChange="pageChangeHanlder" />
     </div>
   </div>
 </template>
@@ -78,23 +80,23 @@ export default defineComponent({
     const fetchArchives = () => {
       articleStore.archives = ''
       api
-        .getAllArchives({
-          current: pagination.current,
-          size: pagination.size
-        })
-        .then(({ data }) => {
-          data.data.records.forEach((item: any) => {
-            item.articles.forEach((article: any) => {
-              article.articleContent = md
-                .render(article.articleContent)
-                .replace(/<\/?[^>]*>/g, '')
-                .replace(/[|]*\n/, '')
-                .replace(/&npsp;/gi, '')
-            })
+          .getAllArchives({
+            current: pagination.current,
+            size: pagination.size
           })
-          articleStore.archives = data.data.records
-          pagination.total = data.data.count
-        })
+          .then(({ data }) => {
+            data.data.records.forEach((item: any) => {
+              item.articles.forEach((article: any) => {
+                article.articleContent = md
+                    .render(article.articleContent)
+                    .replace(/<\/?[^>]*>/g, '')
+                    .replace(/[|]*\n/, '')
+                    .replace(/&npsp;/gi, '')
+              })
+            })
+            articleStore.archives = data.data.records
+            pagination.total = data.data.count
+          })
     }
     const pageChangeHanlder = (current: number) => {
       pagination.current = current
